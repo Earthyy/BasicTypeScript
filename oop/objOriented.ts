@@ -1,71 +1,63 @@
-// www.typescriptlang.org
-/*class Point {
-    x: number = 0;
-    y: number = 0;
-}
+class BankAccount {
+    private accountNumber: number;
+    private balance: number;
+    private withdrawFailMessage: string = 'เงินไม่พอ';
 
-const point = new Point();  
-point.x = 10;               
-point.y = 20;               
+    constructor(accountNumber: number, initialBalance: number) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
 
-console.log(`${point.x}` , "" , `${point.y}`);  */
+    getBalance(): number { //getter
+        return this.balance;
+    }
 
-// use construtor
-class Point {
-    // Fill
-    x: number = 0;
-    y: number = 0;
-    readonly version:string = "0.1" //constanc
-    // Fill
-    constructor(x:number = 0,y:number = 0){
-        this.x = x;
-        this.y = y;
+    deposit(amount: number): void { 
+        if (amount > 0) {
+            this.balance += amount;
+            console.log(`บัญชี : ${this.accountNumber} ฝากเงิน ${amount} บาท เรียบร้อย`);
+        } else {
+            console.log('จำนวนเงินที่ฝากต้องมากกว่า 0');
+        }
+    }
+
+    withdraw(amount: number): void {
+        if (amount > 0) {
+            if (amount <= this.balance) {
+                this.balance -= amount;
+                console.log(`บัญชี : ${this.accountNumber} ถอนเงิน ${amount} บาท เรียบร้อย`);
+            } else {
+                console.log(this.withdrawFailMessage);
+            }
+        } else {
+            console.log('จำนวนเงินที่ถอนต้องมากกว่า 0');
+        }
     }
 }
 
-const point = new Point(10,20); 
-point.x = 1000;               
-console.log(`${point.x}` , "" , `${point.y}`);  
+// ตัวอย่างการใช้งาน
+const account = new BankAccount(1234, 1000);
 
-// use getter setter
-class P{
-    _x:number = 0;
-    get x():number{
-        this._x +=1;
-        return this._x;
-    }
-    set x(value: number){
-        this._x = value;
-    }
+console.log(`เลขที่บัญชี: ${account.getBalance()}`);
+account.deposit(500);
+console.log(`เลขที่บัญชี: ${account.getBalance()}`);
+account.withdraw(200);
+console.log(`เลขที่บัญชี: ${account.getBalance()}`);
+account.withdraw(1500); // จะแสดงข้อความ 'เงินไม่พอ'
+
+
+//absraction
+abstract class Shape {
+    abstract draw(): void
 }
-const p = new P();
-p.x = 20;
-console.log(p.x)
 
-
-class Preson{
-    name:string = "";
-    constructor(name:string = "none"){
-        this.name = name;
-    }
-
-    sayHi() {
-        console.log(`Hello ${this.name}`);
+class Circle extends Shape {
+    draw(): void {
+        console.log('Drawing a circle')
     }
 }
 
-class Employee extends Preson{ 
-    salary:number=0;
-    constructor(name:string, salary:number) {
-        super(name);
-        this.salary = salary;
-    }
-
-    sayHi() {
-        super.sayHi();
-        console.log(`Salary:  ${this.salary}`);
-    }
-}
-
-const ps = new Employee("jone", 18900);
-ps.sayHi();
+const circle = new Circle()
+circle.draw()
+// const shape = new Shape() //Error can't instance abstact class 
+// shape.draw()
