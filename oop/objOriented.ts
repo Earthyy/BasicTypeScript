@@ -1,3 +1,4 @@
+//Encapsulation
 class BankAccount {
     private accountNumber: number;
     private balance: number;
