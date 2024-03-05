@@ -30,7 +30,7 @@ class BankAccount {
                 console.log(this.withdrawFailMessage);
             }
         } else {
-            console.log('จำนวนเงินที่ถอนต้องมากกว่า 0');
+            console.log("จำนวนเงินที่ถอนต้องมากกว่า 0");
         }
     }
 }
@@ -61,3 +61,63 @@ const circle = new Circle()
 circle.draw()
 // const shape = new Shape() //Error can't instance abstact class 
 // shape.draw()
+
+
+//Inheritance
+class Person {
+    name:string;
+
+    constructor(name:string){
+        this.name = name;
+    }
+
+    greet():void {
+        console.log(`ผมชื่อ : ${this.name}`)
+    }
+}
+
+class Student extends Person {
+    studentId:number;
+
+    constructor(name:string, studentId:number){
+        super(name)
+        this.studentId = studentId;
+    }
+
+    study():void {
+        console.log(`รหัส :${this.studentId} ชื่อ :${this.name}`)
+    }
+}
+
+const student = new Student("เอิร์ธ",2);
+student.study();
+student.greet();
+
+
+//Polymorphism
+class Animal {
+    makeSounds():void {
+        console.log('Sounds')
+    }
+}
+
+//in java will
+//@Override
+class Cat extends Animal {
+    makeSounds():void {
+        console.log('Meow')
+    }
+}
+//@Override
+class Dog extends Animal {
+    makeSounds():void {
+        console.log('Woof')
+    }
+}
+
+function triggerAnimalSound(animal: Animal):void {
+    animal.makeSounds()
+}
+
+triggerAnimalSound(new Dog())
+triggerAnimalSound(new Cat())
