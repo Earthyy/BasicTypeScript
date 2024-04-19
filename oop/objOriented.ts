@@ -13,7 +13,7 @@ class BankAccount {
         return this.balance;
     }
 
-    deposit(amount: number): void { 
+    deposit(amount: number): void { // viod = ไม่มีการ return ค่าออกมานอก Method
         if (amount > 0) {
             this.balance += amount;
             console.log(`บัญชี : ${this.accountNumber} ฝากเงิน ${amount} บาท เรียบร้อย`);
